@@ -1,21 +1,12 @@
 import {useEffect, useState} from "react";
 import {getPhotos} from "../Api/PhotoApi";
 import {calculatePagesCount} from "../utils/calculatePagesCount";
+import {Photo} from "../Types/photo";
 
 const ITEMS_PER_PAGE: number = 25;
 
-type url = string;
-
-type photo = {
-    albumId: number,
-    id: number,
-    title: string,
-    url: url,
-    thumbnailUrl: url,
-}
-
 export const usePhotos = () => {
-    const [photos, setPhotos] = useState<Array<photo>>([]);
+    const [photos, setPhotos] = useState<Array<Photo>>([]);
     const [pageCount, setPageCount] = useState<number>(50);
     const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -27,5 +18,5 @@ export const usePhotos = () => {
         });
     }, [currentPage])
 
-    return [photos, pageCount, setCurrentPage];
+    return {photos, pageCount, setCurrentPage};
 }
