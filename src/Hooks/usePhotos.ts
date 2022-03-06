@@ -6,6 +6,7 @@ import {Page} from "../Interfaces/Page";
 import {Album} from "../Interfaces/Album";
 import {generateAlbumOptions} from "../utils/generateAlbumOptions";
 import {AlbumOption} from "../Types/AlbumOption";
+import {AxiosResponse} from "axios";
 
 const albumOptions: AlbumOption[] = generateAlbumOptions();
 
@@ -29,8 +30,8 @@ export const usePhotos = (itemsPerPage: number) => {
             .then(handleResponse);
     }
 
-    const handleResponse = (response: any) => {
-        if(!response.data || response.data.length === 0){
+    const handleResponse = (response: AxiosResponse<Photo[]> | undefined) => {
+        if(!response?.data || response?.data.length === 0){
             setError('Error while loading photos')
             return;
         }
