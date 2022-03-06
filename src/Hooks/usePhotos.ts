@@ -17,6 +17,7 @@ export const usePhotos = (itemsPerPage: number) => {
     const [currentAlbumOpt, setCurrentAlbumOpt] = useState<AlbumOption>(albumOptions[0]);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     const loadPhotos = () => {
         getPhotos(currentPage, itemsPerPage)
@@ -29,11 +30,17 @@ export const usePhotos = (itemsPerPage: number) => {
     }
 
     const handleResponse = (response: any) => {
+        if(!response.data || response.data.length === 0){
+            setError('Error while loading photos')
+            return;
+        }
+
         setPhotos(response?.data);
         const totalCount: number = Number(response?.headers['x-total-count']);
         setPageCount(calculatePageCount(totalCount, itemsPerPage));
 
         setIsLoading(false);
+        setError('');
     }
 
     useEffect(() => {
@@ -50,6 +57,10 @@ export const usePhotos = (itemsPerPage: number) => {
         deletePhotoById(id).then((isFulfilled) => {
             if(isFulfilled){
                 setPhotos(photos.filter((item) => item.id !== id));
+                setError('');
+            }
+            else{
+                setError('Something went wrong');
             }
         })
     }
@@ -70,5 +81,5 @@ export const usePhotos = (itemsPerPage: number) => {
         },
     }
 
-    return {page, album, deletePhoto, isLoading};
+    return {page, album, deletePhoto, isLoading, error};
 }

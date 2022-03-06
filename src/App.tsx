@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {usePhotos} from "./Hooks/usePhotos";
-import {Autocomplete, Pagination, TextField, Typography, Container} from "@mui/material";
+import {Autocomplete, Pagination, TextField, Typography, Container, Alert} from "@mui/material";
 import PhotoGrid from "./Components/PhotoGrid/PhotoGrid";
 import FakeGrid from "./Components/FakeGrid/FakeGrid";
 import {AlbumOption} from "./Types/AlbumOption";
@@ -8,7 +8,7 @@ import {AlbumOption} from "./Types/AlbumOption";
 const ITEMS_PER_PAGE: number = 25;
 
 const App: FC = () => {
-    const {page, album, deletePhoto, isLoading} = usePhotos(ITEMS_PER_PAGE);
+    const {page, album, deletePhoto, isLoading, error} = usePhotos(ITEMS_PER_PAGE);
 
     const handlePageChange = (event: any, value: number) => {
         page.setCurrent(value);
@@ -50,7 +50,7 @@ const App: FC = () => {
                         width: 300,
                     }}
                 />
-
+                {(isLoading || error.length === 0) || <Alert severity="error">{error}</Alert>}
                 {customizedPagination}
                 {isLoading
                     ? <FakeGrid size={ITEMS_PER_PAGE}/>
