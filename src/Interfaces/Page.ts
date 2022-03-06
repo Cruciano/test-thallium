@@ -5,5 +5,5 @@ export interface Page {
     readonly current: number;
     readonly photos: Photo[];
 
-    setCurrent(currentPage: number): void;
+    setCurrent: (currentPage: number) => void;
 }

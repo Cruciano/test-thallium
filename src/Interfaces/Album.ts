@@ -4,5 +4,5 @@ export interface Album {
     readonly currentOption: AlbumOption;
     readonly options:  AlbumOption[];
 
-    setCurrentOption(currentOption: AlbumOption): void;
+    setCurrentOption: (currentOption: AlbumOption) => void;
 }

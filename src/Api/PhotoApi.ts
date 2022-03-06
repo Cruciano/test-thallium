@@ -32,3 +32,9 @@ export const getPhotosByAlbum = async (albumId:number, page: number = 1, limit: 
 
     return response;
 }
+
+export const deletePhotoById = async (id: number) => {
+    const response = await axios.delete(`${BASE_URL}/${id}`);
+
+    return response.status == 200;
+}

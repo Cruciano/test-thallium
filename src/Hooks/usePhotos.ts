@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {getPhotos, getPhotosByAlbum} from "../Api/PhotoApi";
+import {deletePhotoById, getPhotos, getPhotosByAlbum} from "../Api/PhotoApi";
 import {calculatePageCount} from "../utils/calculatePageCount";
 import {Photo} from "../Types/Photo";
 import {Page} from "../Interfaces/Page";
@@ -46,6 +46,14 @@ export const usePhotos = (itemsPerPage: number) => {
         }
     }, [currentPage, currentAlbumOpt, itemsPerPage])
 
+    const deletePhoto = (id: number) => {
+        deletePhotoById(id).then((isFulfilled) => {
+            if(isFulfilled){
+                setPhotos(photos.filter((item) => item.id !== id));
+            }
+        })
+    }
+
     const page: Page = {
         count: pageCount,
         current: currentPage,
@@ -62,5 +70,5 @@ export const usePhotos = (itemsPerPage: number) => {
         },
     }
 
-    return {page, album, isLoading};
+    return {page, album, deletePhoto, isLoading};
 }

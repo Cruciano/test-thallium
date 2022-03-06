@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Card, Skeleton} from "@mui/material";
 
-const FakeItem = () => {
+const FakeItem: FC = () => {
     return (
         <Card sx={{
             height: '100%',

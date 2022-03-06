@@ -1,20 +1,38 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {useModal} from "../../Hooks/useModal";
 import {Photo} from "../../Types/Photo";
-import {Box, ButtonBase, Card, CardContent, CardMedia, Modal, Typography} from "@mui/material";
+import {Box, ButtonBase, Card, CardContent, CardMedia, IconButton, Modal, Typography} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-type PhotoItemProps = Omit<Photo, "id">;
+type PhotoItemProps = {
+    photo: Photo,
+    deletePhoto: (id: number) => void,
+};
 
-const PhotoItem = ({title, albumId, url, thumbnailUrl}: PhotoItemProps) => {
+const PhotoItem: FC<PhotoItemProps> = ({photo, deletePhoto}) => {
     const {open, handleOpen, handleClose} = useModal();
 
     return (
         <Card sx={{
+            position: 'relative',
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
         }}>
+            <IconButton sx={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                zIndex: 1,
+                height: 22,
+                width: 22,
+            }}
+                        onClick={() => deletePhoto(photo.id)}
+                        color='error'
+            >
+                <DeleteIcon/>
+            </IconButton>
             <ButtonBase onClick={handleOpen} sx={{
                 height: '100%',
                 display: 'flex',
@@ -22,17 +40,17 @@ const PhotoItem = ({title, albumId, url, thumbnailUrl}: PhotoItemProps) => {
             }}>
                 <CardMedia
                     component='img'
-                    image={thumbnailUrl}
+                    image={photo.thumbnailUrl}
                     sx={{
                         width: 150,
                     }}
                 />
-                <CardContent sx={{ flexGrow: 1 }}>
+                <CardContent sx={{flexGrow: 1}}>
                     <Typography gutterBottom variant='body1' component='h2'>
-                        {title}
+                        {photo.title}
                     </Typography>
                     <Typography variant='body2' component='h2'>
-                        Album: {albumId}
+                        Album: {photo.albumId}
                     </Typography>
                 </CardContent>
             </ButtonBase>
@@ -43,8 +61,10 @@ const PhotoItem = ({title, albumId, url, thumbnailUrl}: PhotoItemProps) => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     maxWidth: 600,
-                }}>
-                    <img src={url} alt='color'/>
+                }}
+                     onClick={handleClose}
+                >
+                    <img src={photo.url} alt='color'/>
                 </Box>
             </Modal>
         </Card>

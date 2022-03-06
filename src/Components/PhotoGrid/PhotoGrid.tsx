@@ -1,19 +1,19 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Grid} from "@mui/material";
 import {Photo} from "../../Types/Photo";
 import PhotoItem from "./PhotoItem";
 
 type PhotoGridProps = {
-    photos: Array<Photo>
+    photos: Array<Photo>,
+    deletePhoto: (id: number) => void,
 }
 
-const PhotoGrid = ({photos}: PhotoGridProps) => {
+const PhotoGrid: FC<PhotoGridProps> = ({photos, deletePhoto}) => {
     return (
         <Grid container spacing={4} sx={{mt: 1, mb: 5}}>
             {photos.map((photo: Photo) =>
                 <Grid item key={photo.id} xs={12} sm={6} md={2.3}>
-                    <PhotoItem title={photo.title} albumId={photo.albumId} url={photo.url}
-                               thumbnailUrl={photo.thumbnailUrl}/>
+                    <PhotoItem photo={photo} deletePhoto={deletePhoto}/>
                 </Grid>
             )}
         </Grid>

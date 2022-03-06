@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Grid} from "@mui/material";
 import FakeItem from "./FakeItem";
 
@@ -6,7 +6,7 @@ type FakeGridProps = {
     size: number,
 }
 
-const FakeGrid = ({size}: FakeGridProps) => {
+const FakeGrid: FC<FakeGridProps> = ({size}) => {
     return (
         <Grid container spacing={4} sx={{mt: 1, mb: 5}}>
             {((size: number) => {

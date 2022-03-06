@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {usePhotos} from "./Hooks/usePhotos";
 import {Autocomplete, Pagination, TextField, Typography, Container} from "@mui/material";
 import PhotoGrid from "./Components/PhotoGrid/PhotoGrid";
@@ -7,8 +7,8 @@ import {AlbumOption} from "./Types/AlbumOption";
 
 const ITEMS_PER_PAGE: number = 25;
 
-function App() {
-    const {page, album, isLoading} = usePhotos(ITEMS_PER_PAGE);
+const App: FC = () => {
+    const {page, album, deletePhoto, isLoading} = usePhotos(ITEMS_PER_PAGE);
 
     const handlePageChange = (event: any, value: number) => {
         page.setCurrent(value);
@@ -33,6 +33,7 @@ function App() {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    boxShadow: 3,
                 }}
                 maxWidth='lg'
             >
@@ -53,7 +54,7 @@ function App() {
                 {customizedPagination}
                 {isLoading
                     ? <FakeGrid size={ITEMS_PER_PAGE}/>
-                    : <PhotoGrid photos={page.photos}/>}
+                    : <PhotoGrid photos={page.photos} deletePhoto={deletePhoto}/>}
                 {isLoading}
                 {customizedPagination}
             </Container>
