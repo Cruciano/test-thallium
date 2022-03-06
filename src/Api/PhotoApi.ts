@@ -1,7 +1,7 @@
-import axios, {Axios, AxiosResponse} from "axios";
+import axios, {AxiosResponse} from "axios";
 import {Photo} from "../Types/Photo";
 
-const BASE_URL: string = 'http://jsonplaceholder.typicode.com/photos';
+const BASE_URL: string = 'https://jsonplaceholder.typicode.com/photos';
 
 export const getPhotos = async (page: number = 1, limit: number = 25)
     : Promise<AxiosResponse<Photo[]> | undefined> => {
