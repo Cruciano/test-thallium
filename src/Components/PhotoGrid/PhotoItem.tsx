@@ -1,6 +1,6 @@
 import React from 'react';
 import {useModal} from "../../Hooks/useModal";
-import {Photo} from "../../Types/photo";
+import {Photo} from "../../Types/Photo";
 import {Box, ButtonBase, Card, CardContent, CardMedia, Modal, Typography} from "@mui/material";
 
 type PhotoItemProps = Omit<Photo, "id">;

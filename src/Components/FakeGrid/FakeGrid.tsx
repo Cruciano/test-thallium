@@ -9,7 +9,7 @@ type FakeGridProps = {
 const FakeGrid = ({size}: FakeGridProps) => {
     return (
         <Grid container spacing={4} sx={{mt: 1, mb: 5}}>
-            {(function (size: number){
+            {((size: number) => {
                 const arr: JSX.Element[] = [];
                 for (let i = 0; i < size; i++) {
                     arr.push(

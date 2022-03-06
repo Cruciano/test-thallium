@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid} from "@mui/material";
-import {Photo} from "../../Types/photo";
+import {Photo} from "../../Types/Photo";
 import PhotoItem from "./PhotoItem";
 
 type PhotoGridProps = {
