@@ -1,11 +1,11 @@
 import React from 'react';
-import {useModal} from "../Hooks/useModal";
-import {Photo} from "../Types/photo";
+import {useModal} from "../../Hooks/useModal";
+import {Photo} from "../../Types/photo";
 import {Box, ButtonBase, Card, CardContent, CardMedia, Modal, Typography} from "@mui/material";
 
-type PhotoProps = Omit<Photo, "id">;
+type PhotoItemProps = Omit<Photo, "id">;
 
-const PhotoItem = ({title, albumId, url, thumbnailUrl}: PhotoProps) => {
+const PhotoItem = ({title, albumId, url, thumbnailUrl}: PhotoItemProps) => {
     const {open, handleOpen, handleClose} = useModal();
 
     return (

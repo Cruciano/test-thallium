@@ -1,27 +1,40 @@
 import React from 'react';
 import './App.css';
-import {getPhotos, getPhotosByAlbum} from "./Api/PhotoApi";
 import {usePhotos} from "./Hooks/usePhotos";
-import PhotoItem from "./Components/PhotoItem";
-import {Grid} from "@mui/material";
+import {Pagination} from "@mui/material";
 import Container from '@mui/material/Container';
-import {Photo} from "./Types/photo";
+import PhotoGrid from "./Components/PhotoGrid/PhotoGrid";
+import FakeGrid from "./Components/FakeGrid/FakeGrid";
+
+const ITEMS_PER_PAGE: number = 25;
 
 function App() {
-    const {photos, pageCount, setCurrentPage} = usePhotos();
+    const {photos, currentPage, pageCount, setCurrentPage, isLoading} = usePhotos(ITEMS_PER_PAGE);
+
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setCurrentPage(value);
+    }
+
+    const customizedPagination: JSX.Element = <Pagination
+        page={currentPage}
+        count={pageCount}
+        onChange={handlePageChange}
+        color="primary"
+        sx={{
+            display: 'flex',
+            justifyContent: 'center',
+        }}/>
 
     return (
         <div className="App">
-          <Container sx={{py: 8}} maxWidth='lg'>
-            <Grid container spacing={4}>
-                {photos.map((photo: Photo) =>
-                    <Grid item key={photo.id}  xs={12} sm={6} md={2.3}>
-                        <PhotoItem title={photo.title} albumId={photo.albumId} url={photo.url}
-                                   thumbnailUrl={photo.thumbnailUrl}/>
-                    </Grid>
-                )}
-            </Grid>
-          </Container>
+            <Container sx={{py: 8}} maxWidth='lg'>
+                {customizedPagination}
+                {isLoading
+                    ? <FakeGrid size={ITEMS_PER_PAGE}/>
+                    : <PhotoGrid photos={photos}/>}
+                {isLoading}
+                {customizedPagination}
+            </Container>
         </div>
     );
 }

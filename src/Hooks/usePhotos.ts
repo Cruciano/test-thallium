@@ -1,22 +1,26 @@
 import {useEffect, useState} from "react";
 import {getPhotos} from "../Api/PhotoApi";
-import {calculatePagesCount} from "../utils/calculatePagesCount";
+import {calculatePageCount} from "../utils/calculatePageCount";
 import {Photo} from "../Types/photo";
 
-const ITEMS_PER_PAGE: number = 25;
-
-export const usePhotos = () => {
+export const usePhotos = (itemsPerPage: number) => {
     const [photos, setPhotos] = useState<Array<Photo>>([]);
     const [pageCount, setPageCount] = useState<number>(50);
     const [currentPage, setCurrentPage] = useState<number>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     useEffect(() => {
-        getPhotos(currentPage).then(response => {
-            setPhotos(response?.data);
-            const totalCount: number = Number(response?.headers['X-Total-Count']);
-            setPageCount(calculatePagesCount(totalCount, ITEMS_PER_PAGE));
-        });
+        setIsLoading(true);
+
+        getPhotos(currentPage, itemsPerPage)
+            .then(response => {
+                setPhotos(response?.data);
+                const totalCount: number = Number(response?.headers['x-total-count']);
+                setPageCount(calculatePageCount(totalCount, itemsPerPage));
+
+                setIsLoading(false);
+            });
     }, [currentPage])
 
-    return {photos, pageCount, setCurrentPage};
+    return {photos, pageCount, currentPage, setCurrentPage, isLoading};
 }
