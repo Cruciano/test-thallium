@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/TestThallium/static/css/main.e6c13ad2.css",
+    "main.js": "/TestThallium/static/js/main.7950c99b.js",
+    "static/js/787.a1cc2a28.chunk.js": "/TestThallium/static/js/787.a1cc2a28.chunk.js",
+    "index.html": "/TestThallium/index.html",
+    "main.e6c13ad2.css.map": "/TestThallium/static/css/main.e6c13ad2.css.map",
+    "main.7950c99b.js.map": "/TestThallium/static/js/main.7950c99b.js.map",
+    "787.a1cc2a28.chunk.js.map": "/TestThallium/static/js/787.a1cc2a28.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.7950c99b.js"
+  ]
+}
